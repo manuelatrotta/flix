@@ -58,8 +58,8 @@
   </div>
 <!--jumbo-->
 <div class="row">
-  <div class="col">
-          <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <div class="col mb-5">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators color-green">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -88,21 +88,20 @@
   </div>
 </div>
     </header>
-    <div class="films">
+    <div class="films container">
 
     </div>
     <div class="container">
       <div class="row">
         <div class="col">
           <script id="entry-template" type="text/x-handlebars-template">
-            <div class="entry">
-              <img src="..." class="card-img-top" alt="...">
+            <div class="card " style="width: 18rem;">
+             <img class="card-img-top img-fluid" src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
               <h1 class="card-title">{{title}}</h1>
               <span>{{vote_average}}</span>
               <p class="card-text">{{overview}}</p>
             </div>
           </script>
-
         </div>
 
       </div>

@@ -47,6 +47,7 @@ $(document).ready( function() {
    var thisFilm = films[i];
    console.log(thisFilm);
    var context = {
+    poster_path:thisFilm.poster_path,
     title:thisFilm.title,
     vote_average:thisFilm.vote_average,
     overview:thisFilm.overview
