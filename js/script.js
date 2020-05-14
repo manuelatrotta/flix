@@ -15,7 +15,9 @@
 
 $(document).ready( function() {
 //inizio a fare una richiesta generica per vedere come risponde la chiamata
-  var query = 'inception';
+  $('button').click(function () {
+  var query = $('#query').val();
+  console.log(query);
 //chiamata con paramentri da passare
   $.ajax({
     url:'https://api.themoviedb.org/3/search/movie',
@@ -34,8 +36,8 @@ $(document).ready( function() {
       console.log(errors);
     }
 
+    });
   });
-
 });
 
   ////////////////FUNCTIONS
