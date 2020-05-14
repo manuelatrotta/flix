@@ -92,20 +92,20 @@
 
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col">
+      <div class="row ">
+        <div class="col mb-4">
           <script id="entry-template" type="text/x-handlebars-template">
-            <div class="card " style="width: 18rem;">
-             <img class="card-img-top img-fluid" src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
-              <h1 class="card-title">{{title}}</h1>
-              <span>{{vote_average}}</span>
-              <p class="card-text">{{overview}}</p>
-            </div>
-          </script>
-        </div>
-
+          <div class="container-flex card card border-success" style="width: 12rem;">
+          <div class="poster"> <img class=" img-fluid rounded " src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
+          <div class="card-movie">
+            <h6 class="title-cardmovie text-wrap">{{title}} </h6>
+            <span> Vote: {{vote_average}} </span>
+          </div>
       </div>
-
+    <!--/wrapper-->
+    </script>
+        </div>
+      </div>
     </div>
     <!-- JS, Popper.js, and jQuery -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

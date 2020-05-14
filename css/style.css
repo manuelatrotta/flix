@@ -9,6 +9,24 @@
   margin: 0 auto;
 }
 
+.container-flex{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 1%;
+  padding: 5px;
+}
+.films{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+.card-movie{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 h5 {
   color: #28a745;
 }
