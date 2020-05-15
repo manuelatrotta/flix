@@ -2,6 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <!--fontawesome-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" charset="utf-8"></script>
     <!--stylecss-->
     <link rel="stylesheet" href="css/style.css">
     <!--bootstrap-->
@@ -101,7 +103,7 @@
           <div class="poster"> <img class=" img-fluid rounded " src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
           <div class="card-movie">
             <h6 class="title-cardmovie text-wrap">{{title}} </h6>
-            <span> Vote: {{vote_average}} </span>
+            <span>  {{{specialChars}}} </span>
           </div>
       </div>
     </script>
@@ -122,7 +124,7 @@
           <div class="poster"> <img class=" img-fluid rounded " src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
           <div class="card-movie">
             <h6 class="title-cardmovie text-wrap">{{name}} </h6>
-            <span> Vote: {{vote_average}} </span>
+            <span> {{{specialChars}}} </span>
           </div>
       </div>
     </script>

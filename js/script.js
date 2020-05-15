@@ -39,7 +39,7 @@ $(document).ready( function() {
   ////////////////FUNCTIONS
 
 
-//funzione che svuota il valore nella query e nei template 
+//funzione che svuota il valore nella query e nei template
 function resetSearch() {
   $('.films').html('');
   $('.telefilms').html('');
@@ -102,6 +102,7 @@ function callMovie(string) {
     poster_path:thisFilm.poster_path,
     title:thisFilm.title,
     vote_average:thisFilm.vote_average,
+    specialChars: printStars(thisFilm.vote_average),
     overview:thisFilm.overview
   };
 
@@ -122,9 +123,26 @@ function callMovie(string) {
     poster_path:thisteleFilms.poster_path,
     title:thisteleFilms.name,
     vote_average:thisteleFilms.vote_average,
+    specialChars: printStars(thisteleFilms.vote_average),
   };
 
    var html = template(context);
    $('.telefilms').append(html);
  }
+}
+//funzione che correla il voto in scala da 1 a 5 con le stelle.
+function printStars(vote) {
+  //voto arrotondato con .round e diviso 2 per scala ridotta
+  //con un comando interativo determinato ciclo su i contatore se i <= del voto allora la stella sarà vuota altrimenti piena
+  var vote = Math.round(vote / 2);
+  var stars = '';
+  for(var i=1; i<=5; i++) {
+    if(i <=vote) {
+      var singleStar = '<i class="fas fa-star"></i>';
+    }else {
+      var singleStar = '<i class="far fa-star"></i>';
+    }
+    stars = stars + singleStar;
+  }
+  return stars;
 }
