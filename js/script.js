@@ -39,7 +39,7 @@ $(document).ready( function() {
   ////////////////FUNCTIONS
 
 
-//funzione che svuota il valore nella query e nell'input
+//funzione che svuota il valore nella query e nei template 
 function resetSearch() {
   $('.films').html('');
   $('.telefilms').html('');
