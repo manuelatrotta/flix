@@ -17,15 +17,32 @@ $(document).ready( function() {
 //inizio a fare una richiesta generica per vedere come risponde la chiamata
   $('button').click(function () {
   var query = $('#query').val(); // ricerca effettuata dall'utente nell'input
+  resetSearch();
   callMovie(query); // funzione che richiama azione chiamata ajax
   console.log(query);
 //chiamata con paramentri da passare
   });
+
+  $('#input').keypress(function (event) {
+    //enter corrisponde al numero 13
+    if(event.which == 13) {
+      var query = $('#query').val();
+      resetSearch();
+      callMovie(query);
+      console.log(query);
+    }
+  })
 });
 
   ////////////////FUNCTIONS
 
-//funzione che effettua chiamata ajax 
+
+//funzione che svuota il valore nella query e nell'input
+function resetSearch() {
+  $('.films').html('');
+  $('#query').val(" ");
+}
+//funzione che effettua chiamata ajax
 
 function callMovie(string) {
   $.ajax({
