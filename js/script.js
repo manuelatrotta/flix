@@ -18,6 +18,7 @@ $(document).ready( function() {
   $('button').click(function () {
   var query = $('#query').val(); // ricerca effettuata dall'utente nell'input
   resetSearch();
+  callTelefilm(query);
   callMovie(query); // funzione che richiama azione chiamata ajax
   console.log(query);
 //chiamata con paramentri da passare
@@ -29,6 +30,7 @@ $(document).ready( function() {
       var query = $('#query').val();
       resetSearch();
       callMovie(query);
+      callTelefilm(query);
       console.log(query);
     }
   })
@@ -40,6 +42,7 @@ $(document).ready( function() {
 //funzione che svuota il valore nella query e nell'input
 function resetSearch() {
   $('.films').html('');
+  $('.telefilms').html('');
   $('#query').val(" ");
 }
 //funzione che effettua chiamata ajax
@@ -66,6 +69,28 @@ function callMovie(string) {
 
   }
 
+  function callTelefilm(string) {
+    $.ajax({
+      url:'https://api.themoviedb.org/3/search/tv',
+      method: 'GET',
+      data: {
+        api_key:'535029b12126fd0395272f6e0b4b8764',
+        query: string,
+        language: 'it-IT'
+      },
+      //i films sono dati da data.results e uso funzione printFilms per stamparli con handlebars template
+      success: function(data) {
+        var teleFilms = data.results;
+        printTelefilms(teleFilms);
+      },
+      error: function (request,state,errors) {
+        console.log(errors);
+      }
+
+      });
+
+    }
+
 //funzione che stampa il risultato dei films
   function printFilms(films) {
   var source = $('#entry-template').html();
@@ -82,5 +107,24 @@ function callMovie(string) {
 
    var html = template(context);
    $('.films').append(html);
+ }
+}
+
+
+//funzione che stampa il risultato dei films
+  function printTelefilms(teleFilms) {
+  var source = $('#telefilm-template').html();
+  var template = Handlebars.compile(source);
+  for (var i = 0; i < teleFilms.length; i++) {
+   var thisteleFilms = teleFilms[i];
+   console.log(thisteleFilms);
+   var context = {
+    poster_path:thisteleFilms.poster_path,
+    title:thisteleFilms.name,
+    vote_average:thisteleFilms.vote_average,
+  };
+
+   var html = template(context);
+   $('.telefilms').append(html);
  }
 }
