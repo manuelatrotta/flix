@@ -16,15 +16,24 @@
 $(document).ready( function() {
 //inizio a fare una richiesta generica per vedere come risponde la chiamata
   $('button').click(function () {
-  var query = $('#query').val();
+  var query = $('#query').val(); // ricerca effettuata dall'utente nell'input
+  callMovie(query); // funzione che richiama azione chiamata ajax
   console.log(query);
 //chiamata con paramentri da passare
+  });
+});
+
+  ////////////////FUNCTIONS
+
+//funzione che effettua chiamata ajax 
+
+function callMovie(string) {
   $.ajax({
     url:'https://api.themoviedb.org/3/search/movie',
     method: 'GET',
     data: {
       api_key:'535029b12126fd0395272f6e0b4b8764',
-      query: query,
+      query: string,
       language: 'it-IT'
     },
     //i films sono dati da data.results e uso funzione printFilms per stamparli con handlebars template
@@ -37,10 +46,9 @@ $(document).ready( function() {
     }
 
     });
-  });
-});
 
-  ////////////////FUNCTIONS
+  }
+
 //funzione che stampa il risultato dei films
   function printFilms(films) {
   var source = $('#entry-template').html();
