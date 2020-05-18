@@ -118,6 +118,7 @@ function printResults (type, results) {
       title: title,
       vote_average: thisResult.vote_average,
       specialChars: printStars(thisResult.vote_average),
+      //richiamo la funzione stampa poster
       poster_path:posterPrint(thisResult.poster_path)
 
     };
@@ -126,7 +127,7 @@ function printResults (type, results) {
   }
 }
 
-// funzione con immagini del film o serie tv
+// funzione stampa poster in cui se il risultato del poster_path == null stampa immagine di default
 function posterPrint(poster) {
   var url = 'https://image.tmdb.org/t/p/w185';
   if (poster != null) {
