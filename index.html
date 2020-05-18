@@ -93,35 +93,22 @@
 </div>
     </header>
     <!--append films-->
+
+    <div class="films"> </div>
+<!--handlebars-template con attributi richiesti da stampare-->
+    <div class="telefilms"></div>
+    
     <div class="container">
         <h4 class="green weight-bold text-uppercase m-4">film Suggeriti per te</h4>
-      <div class="films container"></div>
     </div>
+
+    <div class="container">
+        <h4 class="green weight-bold text-uppercase m-4">telefilm Suggeriti per te</h4>
+
     <div class="container">
       <div class="row ">
         <div class="col mb-4">
           <script id="entry-template" type="text/x-handlebars-template">
-          <div class="container-flex card card border-success" style="width: 12rem;">
-          <div class="poster"> <img class=" img-fluid rounded " src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
-          <div class="card-movie">
-            <h6 class="title-cardmovie text-wrap">{{title}} </h6>
-            <span>  {{{specialChars}}} </span>
-          </div>
-      </div>
-    </script>
-        </div>
-      </div>
-    </div>
-
-    <!--append telefilms-->
-    <div class="container">
-        <h4 class="green weight-bold text-uppercase m-4">telefilm Suggeriti per te</h4>
-      <div class="telefilms container"></div>
-    </div>
-    <div class="container">
-      <div class="row ">
-        <div class="col mb-4">
-          <script id="telefilm-template" type="text/x-handlebars-template">
           <div class="container-flex card card border-success" style="width: 12rem;">
           <div class="poster"> <img class=" img-fluid rounded " src=" https://image.tmdb.org/t/p/w185{{poster_path}}" alt=""></div>
           <div class="card-movie">
@@ -133,6 +120,10 @@
         </div>
       </div>
     </div>
+
+    <script id="noresult-template" type="text/x-handlebars-template">
+     <li> We are sorry, your search has no results</li>
+   </script>
 
     <!-- JS, Popper.js, and jQuery -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

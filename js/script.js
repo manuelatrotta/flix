@@ -14,23 +14,18 @@
 //        },
 
 $(document).ready( function() {
-//inizio a fare una richiesta generica per vedere come risponde la chiamata
   $('button').click(function () {
-  var query = $('#query').val(); // ricerca effettuata dall'utente nell'input
-  resetSearch();
-  callTelefilm(query);
-  callMovie(query); // funzione che richiama azione chiamata ajax
-  console.log(query);
+  var search = $('#query').val(); // ricerca effettuata dall'utente nell'input
+  query();
+
 //chiamata con paramentri da passare
   });
 
   $('#input').keypress(function (event) {
     //enter corrisponde al numero 13
     if(event.which == 13) {
-      var query = $('#query').val();
-      resetSearch();
-      callMovie(query);
-      callTelefilm(query);
+      var search = $('#query').val();
+      query();
       console.log(query);
     }
   })
@@ -45,90 +40,88 @@ function resetSearch() {
   $('.telefilms').html('');
   $('#query').val(" ");
 }
-//funzione che effettua chiamata ajax
 
-function callMovie(string) {
+//funzione per messaggio di non risultati
+function sendMessageNoResult() {
+  var source = $("#noresult-template").html();
+  var template = Handlebars.compile(source);
+  var html = template();
+  $('.films').append(html);
+}
+
+//funzione ricerca telefilms e films che richiama le due chiamate distintamente
+function query() {
+  var search = $('#query').val();
+  resetSearch();
+
+  var api_key = '535029b12126fd0395272f6e0b4b8764';
+
+  var url_movies = 'https://api.themoviedb.org/3/search/movie';
+  var url_telefilms = 'https://api.themoviedb.org/3/search/tv';
+
+  var typeFilms = 'films';
+  var typeTelefilms = 'telefilms';
+
+  getData(search, api_key, url_movies, typeFilms, '.films');
+  getData(search, api_key, url_telefilms, typeTelefilms, '.telefilms');
+}
+
+//funzione chiamata generica richiamata nella funzione query in cui sono esplicitate le variabili
+function getData(string, api_key, url, type, container) {
+
   $.ajax({
-    url:'https://api.themoviedb.org/3/search/movie',
-    method: 'GET',
-    data: {
-      api_key:'535029b12126fd0395272f6e0b4b8764',
+    url: url,
+    method:'GET',
+    data:{
+      api_key: api_key,
       query: string,
       language: 'it-IT'
     },
-    //i films sono dati da data.results e uso funzione printFilms per stamparli con handlebars template
     success: function(data) {
-      var films = data.results;
-      printFilms(films);
+//se  si ha riscontro con la ricerca quindi il total result è > 0 si stampano i risultati richiamando la funzione printResults
+        if (data.total_results > 0) {
+          var results = data.results;
+          printResults(type, results);
+//se non si ha riscontro con la ricerca quindi il total result è uguale a 0 si manda un messaggio all'utente
+        }else{
+          sendMessageNoResult($(container));
+      }
     },
-    error: function (request,state,errors) {
+    error:function(request, state, errors) {
       console.log(errors);
     }
-
-    });
-
-  }
-
-  function callTelefilm(string) {
-    $.ajax({
-      url:'https://api.themoviedb.org/3/search/tv',
-      method: 'GET',
-      data: {
-        api_key:'535029b12126fd0395272f6e0b4b8764',
-        query: string,
-        language: 'it-IT'
-      },
-      //i films sono dati da data.results e uso funzione printFilms per stamparli con handlebars template
-      success: function(data) {
-        var teleFilms = data.results;
-        printTelefilms(teleFilms);
-      },
-      error: function (request,state,errors) {
-        console.log(errors);
-      }
-
-      });
-
-    }
-
-//funzione che stampa il risultato dei films
-  function printFilms(films) {
-  var source = $('#entry-template').html();
-  var template = Handlebars.compile(source);
-  for (var i = 0; i < films.length; i++) {
-   var thisFilm = films[i];
-   console.log(thisFilm);
-   var context = {
-    poster_path:thisFilm.poster_path,
-    title:thisFilm.title,
-    vote_average:thisFilm.vote_average,
-    specialChars: printStars(thisFilm.vote_average),
-    overview:thisFilm.overview
-  };
-
-   var html = template(context);
-   $('.films').append(html);
- }
+  });
 }
 
 
 //funzione che stampa il risultato dei films
-  function printTelefilms(teleFilms) {
-  var source = $('#telefilm-template').html();
+//funzione che stampa i risultati ottenuti sia dei film che dei telefilm
+function printResults (type, results) {
+  var source = $("#entry-template").html();
   var template = Handlebars.compile(source);
-  for (var i = 0; i < teleFilms.length; i++) {
-   var thisteleFilms = teleFilms[i];
-   console.log(thisteleFilms);
-   var context = {
-    poster_path:thisteleFilms.poster_path,
-    title:thisteleFilms.name,
-    vote_average:thisteleFilms.vote_average,
-    specialChars: printStars(thisteleFilms.vote_average),
-  };
+  var title;
+//con un ciclo for vediamo tutte le caratteristiche dei risultati dei films e dei telefilms (i)
+  for (var i = 0; i < results.length; i++) {
+    var thisResult = results[i];
+    console.log(thisResult);
+    if(type == 'films') {
+      title = thisResult.title;
+      var container = $('.films');
+    } else if (type == 'telefilms'){
+      title = thisResult.name;
+        var container = $('.telefilms');
+    }
+    var context = {
+      type: type,
+      title: title,
+      vote_average: thisResult.vote_average,
+      specialChars: printStars(thisResult.vote_average),
+      poster_path:thisResult.poster_path,
 
-   var html = template(context);
-   $('.telefilms').append(html);
- }
+    };
+    var html = template(context);
+    container.append(html);
+  }
 }
 //funzione che correla il voto in scala da 1 a 5 con le stelle.
 function printStars(vote) {
