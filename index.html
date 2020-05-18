@@ -95,13 +95,13 @@
     <!--append films-->
     <div class="container">
         <h4 class="green weight-bold text-uppercase m-4">film Suggeriti per te</h4>
+      <div class="films"> </div>
     </div>
-    <div class="films"> </div>
 <!--handlebars-template con attributi richiesti da stampare-->
     <div class="container">
         <h4 class="green weight-bold text-uppercase m-4">telefilm Suggeriti per te</h4>
+      <div class="telefilms"></div>
     </div>
-    <div class="telefilms"></div>
 
 
     <div class="container">
@@ -120,9 +120,18 @@
       </div>
     </div>
 
+  <div class="container">
     <script id="noresult-template" type="text/x-handlebars-template">
-     <li> We are sorry, your search has no results</li>
-   </script>
+      <div class="card  card border-success">
+       <div class="card-header">
+         Siamo spiacenti
+       </div>
+       <div class="card-body">
+         <h5 class="card-title">La tua ricerca non ha dato risultati</h5>
+       </div>
+     </div>
+    </script>
+   </div>
 
     <!-- JS, Popper.js, and jQuery -->
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
