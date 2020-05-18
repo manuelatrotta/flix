@@ -111,17 +111,30 @@ function printResults (type, results) {
       title = thisResult.name;
         var container = $('.telefilms');
     }
+
+
     var context = {
       type: type,
       title: title,
       vote_average: thisResult.vote_average,
       specialChars: printStars(thisResult.vote_average),
-      poster_path:thisResult.poster_path,
+      poster_path:posterPrint(thisResult.poster_path)
 
     };
     var html = template(context);
     container.append(html);
   }
+}
+
+// funzione con immagini del film o serie tv
+function posterPrint(poster) {
+  var url = 'https://image.tmdb.org/t/p/w185';
+  if (poster != null) {
+    url += poster;
+  }else {
+    url = 'img/default.jpg';
+  }
+  return url;
 }
 //funzione che correla il voto in scala da 1 a 5 con le stelle.
 function printStars(vote) {

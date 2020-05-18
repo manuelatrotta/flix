@@ -31,6 +31,9 @@ body {
   flex-wrap: wrap;
 }
 
+.poster {
+  background-image: url(../img/deafault.jpg);
+}
 h5 {
   color: #28a745;
 }
